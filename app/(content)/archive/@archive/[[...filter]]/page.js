@@ -1,12 +1,12 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import NewsList from '@/components/news-list';
+import NewsList from "@/components/news-list";
 import {
   getAvailableNewsMonths,
   getAvailableNewsYears,
   getNewsForYear,
   getNewsForYearAndMonth,
-} from '@/lib/news';
+} from "@/lib/news";
 
 export default function FilteredNewsPage({ params }) {
   const filter = params.filter;
@@ -16,7 +16,6 @@ export default function FilteredNewsPage({ params }) {
 
   let news;
   let links = getAvailableNewsYears();
-
   if (selectedYear && !selectedMonth) {
     news = getNewsForYear(selectedYear);
     links = getAvailableNewsMonths(selectedYear);
@@ -35,10 +34,9 @@ export default function FilteredNewsPage({ params }) {
 
   if (
     (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
-    (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+    (selectedMonth && !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
   ) {
-    throw new Error('Invalid filter.');
+    throw new Error("Invalid filter.");
   }
 
   return (
@@ -47,10 +45,7 @@ export default function FilteredNewsPage({ params }) {
         <nav>
           <ul>
             {links.map((link) => {
-              const href = selectedYear
-                ? `/archive/${selectedYear}/${link}`
-                : `/archive/${link}`;
-
+              const href = selectedYear ? `/archive/${selectedYear}/${link}` : `/archive/${link}`;
               return (
                 <li key={link}>
                   <Link href={href}>{link}</Link>
